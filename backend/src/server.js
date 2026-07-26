@@ -5,6 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes.js"
 import protect from "./middlewares/authMiddleware.js";
+import noteRoutes from "./routes/noteRoutes.js";
 
 dotenv.config();
 
@@ -26,6 +27,8 @@ app.get("/", protect, (req, res) => {
 });
 
 app.use("/api", authRoutes);
+app.use("/api", noteRoutes);
+
 
 const startServer = async () => {
     try {
