@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import Logout from "../components/Logout";
 
 const MainLayout = () =>{
 
@@ -7,6 +8,7 @@ const MainLayout = () =>{
         <>
         <Sidebar />
 
+        <Logout />
         <Outlet />
         </>
     )
