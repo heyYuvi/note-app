@@ -6,8 +6,12 @@ const Home = () => {
     const navigate = useNavigate(); 
 
     const [notes, setNotes] = useState([]);
+    const [search, setSearch] = useState("");
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(true);
 
+    const pages = [];
 
     const handleEdit = (id) =>{
         navigate(`/notes/edit/${id}`);
@@ -34,8 +38,14 @@ const Home = () => {
     useEffect(() => {
         const fetchNotes = async () => {
         try {
-            const res = await api.get("/notes");
+            const res = await api.get(`/notes`, {
+                params: {
+                    search,
+                    page
+                }
+            });
             setNotes(res.data.data);
+            setTotalPages(res.data.pagination.totalPages);
 
         } catch (error) {
             console.log(error);
@@ -45,7 +55,7 @@ const Home = () => {
     }
 
     fetchNotes();
-    }, []);
+    }, [search, page]);
 
     if (loading) {
         return <div>...Loading</div>
@@ -55,19 +65,36 @@ const Home = () => {
         return <div>No Notes Found</div>
     }
 
+    for(let i=1; i<=totalPages; i++){
+        pages.push(i);
+    }
+
     return (
+        <>
+        <input type="text" value={search} placeholder="Search for notes" onChange={(e) =>{setSearch(e.target.value)}}></input>
+
         <div>
             {
                 notes.map((note) => (
                     <div key={note.id}>
                         <h2>{note.title}</h2>
                         <p>{note.description}</p>
+                        
                         <button onClick={() =>{handleEdit(note.id)}}>Edit</button>
                         <button onClick={() =>{handleDelete(note.id)}}>Delete</button>
                     </div>
                 ))
             }
         </div>
+        <div>
+            <button disabled={page === 1} onClick={() =>{setPage(page - 1)}}>Previous</button>
+            {pages.map((pageNumber) =>(
+                <button key={pageNumber} disabled={page === pageNumber} onClick={() =>{setPage(pageNumber)}}>{pageNumber}</button>
+            ))
+            }
+            <button disabled={page === totalPages} onClick={() =>{setPage(page + 1)}}>Next</button>
+        </div>
+        </>
     )
 }
 
