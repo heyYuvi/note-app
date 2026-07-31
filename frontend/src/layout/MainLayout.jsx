@@ -1,16 +1,16 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import Logout from "../components/Logout";
 
 const MainLayout = () =>{
 
     return (
-        <>
+        <div className="h-screen flex w-full">
         <Sidebar />
-
-        <Logout />
-        <Outlet />
-        </>
+        
+        <main className="flex-1">
+            <Outlet />
+        </main>
+        </div>
     )
 }
 
