@@ -145,7 +145,8 @@ export const getSingleNote = async (req, res) => {
                 user: {
                     id: note.user._id,
                     name: note.user.name
-                }
+                },
+                updatedAt: note.updatedAt
             }
         });
     } catch (error) {
@@ -215,7 +216,8 @@ export const updateNote = async (req, res) =>{
             user: {
                 id: note.user._id,
                 name: note.user.name
-            }
+            },
+            updatedAt: note.updatedAt
         }
     });
     }catch(error){

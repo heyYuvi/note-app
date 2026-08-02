@@ -13,15 +13,20 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL,
     credentials: true
 }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/", protect, (req, res) => {
+
+// Health Check
+
+app.get("/health", (req, res) => {
     res.json({
         success: true,
+        status: "ok",
+        timestamp: new Date().toISOString(),
         message: "Note app is running"
     });
 });
