@@ -96,7 +96,7 @@ const EditNote = () => {
                         </div>
                         <div className="flex gap-6 mt-6 justify-end-safe">
                             
-                        <button onClick={() =>{navigate("/")}} className="flex items-center gap-2"><GoArrowLeft /> Cancel</button>
+                        <button onClick={() =>{navigate("/")}} className="flex items-center gap-2 cursor-pointer"><GoArrowLeft /> Cancel</button>
                         <button className="bg-blue-600 text-white font-bold px-4 py-2 rounded-md hover:bg-blue-800 cursor-pointer flex items-center gap-2"><CiCircleCheck size={20}/>Save Changes</button>
                         </div>
                         </div>
